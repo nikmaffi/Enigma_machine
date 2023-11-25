@@ -12,11 +12,6 @@ class Enigma:
         self.right_rotor = right_rotor
         self.lampboard = Lampboard()
 
-    def set_rotors(self, key):
-        self.left_rotor.set_rotor(key[0])
-        self.central_rotor.set_rotor(key[1])
-        self.right_rotor.set_rotor(key[2])
-
     def set_rings(self, rings):
         self.left_rotor.set_ring(rings[0])
         self.central_rotor.set_ring(rings[1])

@@ -2,7 +2,6 @@ import pygame
 
 pygame.init()
 
-from Lampboard import Lampboard
 from Enigma import Enigma
 from Rotor import *
 from Reflector import *
@@ -16,8 +15,9 @@ def main():
     key_pressed = -1
 
     #Enigma
-    ENIGMA = Enigma(REFLECTOR_B, ROTOR_I, ROTOR_II, ROTOR_III)
+    ENIGMA = Enigma(REFLECTOR_B, ROTOR_VIII, ROTOR_III, ROTOR_VI)
     ENIGMA.set_rotors_xy(WINDOW_SIZE)
+    ENIGMA.set_rings("NIK")
 
     pygame.display.set_caption("ENIGMA Machine")
 
@@ -34,7 +34,7 @@ def main():
             elif event.type == pygame.KEYUP:
                 if key_pressed != -1:
                     key_pressed = -1
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == pygame.BUTTON_LEFT:
                 ENIGMA.update(event.pos)
 
         screen.fill((0, 0, 0))

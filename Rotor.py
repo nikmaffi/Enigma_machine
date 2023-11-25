@@ -7,6 +7,7 @@ class Rotor:
         self.PADDING = 30
         self.ACTION_RADIUS = 10
         
+        self.ring = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         self.left = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         self.right = wiring
         self.notches = notches
@@ -24,14 +25,20 @@ class Rotor:
         letter = self.left[signal]
         return self.right.find(letter)
 
-    def rotate(self, n=1, forward=True):
+    def rotate(self, n=1, forward=True, ring=True):
         for _ in range(n):
             if forward:
                 self.left = self.left[1:] + self.left[0]
                 self.right = self.right[1:] + self.right[0]
+
+                if ring:
+                    self.ring = self.ring[1:] + self.ring[0]
             else:
                 self.left = self.left[-1] + self.left[:-1]
                 self.right = self.right[-1] + self.right[:-1]
+
+                if ring:
+                    self.ring = self.ring[-1] + self.ring[:-1]
     
     def set_rotor(self, letter):
         n = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".find(letter)
@@ -39,7 +46,7 @@ class Rotor:
 
     def set_ring(self, letter):        
         n = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".find(letter)
-        self.rotate(n, forward=False)
+        self.rotate(n, forward=False, ring=False)
 
         new_notches = ""
 
@@ -60,9 +67,9 @@ class Rotor:
             self.rotate()
 
     def draw(self, screen):
-        previous = self.font.render(self.left[-1], True, self.TEXT_COLOR)
-        current = self.font.render(self.left[0], True, self.TEXT_COLOR)
-        next = self.font.render(self.left[1], True, self.TEXT_COLOR)
+        previous = self.font.render(self.ring[-1], True, self.TEXT_COLOR)
+        current = self.font.render(self.ring[0], True, self.TEXT_COLOR)
+        next = self.font.render(self.ring[1], True, self.TEXT_COLOR)
 
         screen.blit(next, next.get_rect(center=(self.x, self.y)))
         screen.blit(current, current.get_rect(center=(self.x, self.y + self.PADDING)))
