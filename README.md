@@ -1,4 +1,4 @@
-# Enigma_Machine
+# Enigma_machine
 Enigma machine simulator written in Python and Pygame
 
 ---
