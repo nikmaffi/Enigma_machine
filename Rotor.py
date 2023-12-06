@@ -16,6 +16,7 @@ class Rotor:
         self.y = 0
 
         self.font = pygame.font.Font("./res/fonts/typewriter.otf", self.FONT_SIZE)
+        self.rotate_sound = pygame.mixer.Sound("./res/audio/rotor.wav")
 
     def input(self, signal):
         letter = self.right[signal]
@@ -63,8 +64,10 @@ class Rotor:
     def update(self, mouse):
         if ((mouse[0] - self.x)**2 + (mouse[1] - self.y)**2)**0.5 <= self.ACTION_RADIUS:
             self.rotate(forward=False)
+            self.rotate_sound.play()
         elif ((mouse[0] - self.x)**2 + (mouse[1] - (self.y + self.PADDING * 2))**2)**0.5 <= self.ACTION_RADIUS:
             self.rotate()
+            self.rotate_sound.play()
 
     def draw(self, screen):
         previous = self.font.render(self.ring[-1], True, self.TEXT_COLOR)

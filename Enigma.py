@@ -1,3 +1,5 @@
+import pygame
+
 from Keyboard import Keyboard
 from Plugboard import Plugboard
 from Lampboard import Lampboard
@@ -12,12 +14,16 @@ class Enigma:
         self.right_rotor = right_rotor
         self.lampboard = Lampboard()
 
+        self.key_sound = pygame.mixer.Sound("./res/audio/key.wav")
+
     def set_rings(self, rings):
         self.left_rotor.set_ring(rings[0])
         self.central_rotor.set_ring(rings[1])
         self.right_rotor.set_ring(rings[2])
 
     def encypher(self, letter):
+        self.key_sound.play()
+
         if self.central_rotor.left[0] in self.central_rotor.notches and self.right_rotor.left[0] in self.right_rotor.notches:
             self.right_rotor.rotate()
             self.central_rotor.rotate()

@@ -28,6 +28,7 @@ class Plugboard:
         self.wires_ends = []
 
         self.font = pygame.font.Font("./res/fonts/typewriter.otf", self.FONT_SIZE)
+        self.plug_sound = pygame.mixer.Sound("./res/audio/plug.wav")
 
         for count, letter in enumerate("QWERTZUIOASDFGHJKPYXCVBNML"):
             if count >= self.ROW_1_SWITCHES + self.ROW_2_SWITCHES:
@@ -95,6 +96,8 @@ class Plugboard:
                 self.pairs.append(key)
 
                 self.wiring = True
+
+                self.plug_sound.play()
             elif self.wiring and not busy:
                 self.wires_ends[-1] = pos
 
@@ -103,6 +106,8 @@ class Plugboard:
                 self.set_pairs()
 
                 self.wiring = False
+
+                self.plug_sound.play()
             elif not self.wiring and busy:
                 if pos in self.wires_starts:
                     index = self.wires_starts.index(pos)
@@ -112,6 +117,8 @@ class Plugboard:
                 self.free(index)
 
                 self.set_pairs()
+
+                self.plug_sound.play()
     
     def draw(self, screen):
         for _, data in self.switches.items():
