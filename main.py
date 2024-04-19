@@ -10,6 +10,8 @@ WINDOW_SIZE = (700, 600)
 FPS = 60
 
 def main():
+    pygame.display.set_icon(pygame.image.load("./res/icon.png"))
+
     screen = pygame.display.set_mode(WINDOW_SIZE)
     done = False
     key_pressed = -1
